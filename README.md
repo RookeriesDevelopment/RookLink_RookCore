@@ -40,7 +40,7 @@ This token is intended to limit/filter the access to specific resources,
 - Room Level e.g. The client can use a token like room_fzagxudzny3qacvh3gtt7jieqmmt9j to get only the resources of a room (users/sensors/trainings)
 
 Notes:
- - Every entity level can have multiple tokens so that the client can assign each of them to different products and remove the access to a specific product if this gets discontinnued.
+ - Every entity level can have multiple tokens so that the client can assign each of them to different products and remove the access to a specific product if this gets discontinued.
  - Every resource belongs to the client, so that even when a user is created using a child entity e.g. a user added to a Room, the user is created as a client user and then linked to the room.
  - Every resource created on a child entity is automatically linked to his parent’s entities, e.g. an user added to a Room is automatically linked to his branch/chain parent. (It is not linked to the client since all the users belongs to the client entity).
 
@@ -75,67 +75,98 @@ URL: ANY user related
 
 --------
 
-## Indices
+<!--- If we have only one group/collection, then no need for the "ungrouped" heading -->
+
+
+## Variables
+
+| Key | Value | Type |
+| --- | ------|-------------|
+| token_rm |  |  |
+| base_url | https://api2.rookmotion.review |  |
+
+
+
+## Endpoints
 
 * [Centers](#centers)
-
-  * [Branch](#1-branch)
-  * [Centers](#2-centers)
-  * [Chain](#3-chain)
-  * [Room](#4-room)
-
-* [Sensors](#sensors)
-
-  * [Add sensor to user](#1-add-sensor-to-user)
-  * [Remove sensor from user](#2-remove-sensor-from-user)
-  * [Retrive sensors from user](#3-retrive-sensors-from-user)
-  * [Update sensor](#4-update-sensor)
-
-* [Server](#server)
-
-  * [Retrive server datetime](#1-retrive-server-datetime)
-
-* [Summaries](#summaries)
-
-  * [Retrive summaries types](#1-retrive-summaries-types)
-
-* [Training type](#training-type)
-
-  * [Create  training types extra attributes](#1-create--training-types-extra-attributes)
-  * [Retrive training types](#2-retrive-training-types)
-  * [Retrive training types extra attributes](#3-retrive-training-types-extra-attributes)
-  * [delete  training types extra attributes](#4-delete--training-types-extra-attributes)
-  * [update  training types extra attributes](#5-update--training-types-extra-attributes)
-
-* [Trainings](#trainings)
-
-  * [Add training to user](#1-add-training-to-user)
-  * [Remove training user](#2-remove-training-user)
-  * [Retrieve training information of user](#3-retrieve-training-information-of-user)
-  * [Retrive sum summaries](#4-retrive-sum-summaries)
-  * [Retrive training state of user](#5-retrive-training-state-of-user)
-  * [Retrive trainings of user](#6-retrive-trainings-of-user)
-
+    1. [Chain](#1-chain)
+    1. [Branch](#2-branch)
+    1. [Room](#3-room)
+    1. [Centers](#4-centers)
+        * [Centers (empty)](#i-example-request-centers-empty)
 * [Users](#users)
-
-  * [Add user to RookMotion](#1-add-user-to-rookmotion)
-  * [External user](#2-external-user)
-  * [Information](#3-information)
-  * [Physiological variables](#4-physiological-variables)
-  * [Remove user for RookMotion](#5-remove-user-for-rookmotion)
-  * [Retrieve user status](#6-retrieve-user-status)
-  * [Retrive client users](#7-retrive-client-users)
-  * [update user email](#8-update-user-email)
-
+    1. [Information](#1-information)
+    1. [Physiological variables](#2-physiological-variables)
+    1. [External user](#3-external-user)
+    1. [Retrieve client users](#4-retrieve-client-users)
+        * [Retrieve client users (user information empty)](#i-example-request-retrieve-client-users-user-information-empty)
+        * [Retrieve client users (empty data)](#ii-example-request-retrieve-client-users-empty-data)
+    1. [Add user to RookMotion](#5-add-user-to-rookmotion)
+        * [Add user to RookMotion](#i-example-request-add-user-to-rookmotion)
+    1. [update user email](#6-update-user-email)
+        * [update user email](#i-example-request-update-user-email)
+        * [update user email (user without change)](#ii-example-request-update-user-email-user-without-change)
+    1. [Retrieve user status](#7-retrieve-user-status)
+        * [Retrieve user status](#i-example-request-retrieve-user-status)
+    1. [Remove user for RookMotion](#8-remove-user-for-rookmotion)
+        * [Remove user for RookMotion](#i-example-request-remove-user-for-rookmotion)
+* [Training type](#training-type)
+    1. [Add training type](#1-add-training-type)
+        * [Add training type](#i-example-request-add-training-type)
+    1. [Retrieve training types](#2-retrieve-training-types)
+        * [Retrieve training types](#i-example-request-retrieve-training-types)
+    1. [Update training type](#3-update-training-type)
+        * [Update training type](#i-example-request-update-training-type)
+    1. [Retrieve training types extra attributes](#4-retrieve-training-types-extra-attributes)
+        * [Retrieve training types](#i-example-request-retrieve-training-types-1)
+    1. [Create  training types extra attributes](#5-create--training-types-extra-attributes)
+        * [Retrieve training types](#i-example-request-retrieve-training-types-2)
+    1. [update  training types extra attributes](#6-update--training-types-extra-attributes)
+        * [Retrieve training types](#i-example-request-retrieve-training-types-3)
+    1. [delete  training types extra attributes](#7-delete--training-types-extra-attributes)
+        * [Retrieve training types](#i-example-request-retrieve-training-types-4)
+* [Trainings](#trainings)
+    1. [Add training to user](#1-add-training-to-user)
+        * [Add training to user](#i-example-request-add-training-to-user)
+    1. [Retrieve trainings of user](#2-retrieve-trainings-of-user)
+        * [Retrieve trainings of user](#i-example-request-retrieve-trainings-of-user)
+    1. [Retrieve training information of user](#3-retrieve-training-information-of-user)
+        * [Retrieve training information of user](#i-example-request-retrieve-training-information-of-user)
+    1. [Retrieve training state of user](#4-retrieve-training-state-of-user)
+        * [Retrieve training state of user](#i-example-request-retrieve-training-state-of-user)
+    1. [Remove training user](#5-remove-training-user)
+        * [Remove training user](#i-example-request-remove-training-user)
+    1. [Retrieve sum summaries](#6-retrieve-sum-summaries)
+        * [Retrieve sum summaries](#i-example-request-retrieve-sum-summaries)
+* [Sensors](#sensors)
+    1. [Retrieve sensors from user](#1-retrieve-sensors-from-user)
+        * [Retrieve sensors from user (empty data)](#i-example-request-retrieve-sensors-from-user-empty-data)
+        * [Retrieve sensors from user (whit data)](#ii-example-request-retrieve-sensors-from-user-whit-data)
+    1. [Add sensor to user](#2-add-sensor-to-user)
+        * [Add sensor to user (owned)](#i-example-request-add-sensor-to-user-owned)
+        * [Add sensor to user (borrowed)](#ii-example-request-add-sensor-to-user-borrowed)
+    1. [Update sensor](#3-update-sensor)
+        * [Update sensor (public)](#i-example-request-update-sensor-public)
+        * [Update sensor (random)](#ii-example-request-update-sensor-random)
+    1. [Remove sensor from user](#4-remove-sensor-from-user)
+        * [Remove sensor from user](#i-example-request-remove-sensor-from-user)
+* [Server](#server)
+    1. [Retrieve server datetime](#1-retrieve-server-datetime)
+        * [Retrieve server datetime](#i-example-request-retrieve-server-datetime)
+* [Summaries](#summaries)
+    1. [Retrieve summaries types](#1-retrieve-summaries-types)
+        * [Retrieve summaries types](#i-example-request-retrieve-summaries-types)
 
 --------
+
 
 
 ## Centers
 
 
 
-### 1. Branch
+### 1. Chain
 
 
 
@@ -149,7 +180,35 @@ URL:
 
 
 
-### 2. Centers
+### 2. Branch
+
+
+
+***Endpoint:***
+
+```bash
+Method: 
+Type: 
+URL: 
+```
+
+
+
+### 3. Room
+
+
+
+***Endpoint:***
+
+```bash
+Method: 
+Type: 
+URL: 
+```
+
+
+
+### 4. Centers
 
 
 
@@ -158,7 +217,7 @@ URL:
 ```bash
 Method: GET
 Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/centers/search
+URL: {{base_url}}/api/v2/centers/search
 ```
 
 
@@ -174,7 +233,7 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/centers/search
 ***More example Requests/Responses:***
 
 
-##### I. Example Request: Centers (empty)
+#### I. Example Request: Centers (empty)
 
 
 ***Headers:***
@@ -186,13 +245,17 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/centers/search
 
 
 
-##### I. Example Response: Centers (empty)
+***Body: None***
+
+
+
+#### I. Example Response: Centers (empty)
 ```js
 {
     "data": [],
     "links": {
-        "first": "http://apiv2.test/api/v2/centers/search?page=1",
-        "last": "http://apiv2.test/api/v2/centers/search?page=1",
+        "first": "http://api2.rookmotion.com/api/v2/centers/search?page=1",
+        "last": "http://api2.rookmotion.com/api/v2/centers/search?page=1",
         "prev": null,
         "next": null
     },
@@ -207,7 +270,7 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/centers/search
                 "active": false
             },
             {
-                "url": "http://apiv2.test/api/v2/centers/search?page=1",
+                "url": "http://api2.rookmotion.com/api/v2/centers/search?page=1",
                 "label": "1",
                 "active": true
             },
@@ -217,7 +280,7 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/centers/search
                 "active": false
             }
         ],
-        "path": "http://apiv2.test/api/v2/centers/search",
+        "path": "http://api2.rookmotion.com/api/v2/centers/search",
         "per_page": 30,
         "to": null,
         "total": 0
@@ -232,7 +295,13 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/centers/search
 
 
 
-### 3. Chain
+## Users
+
+In this section you will find a list of the resources available in the RookMotion API to manage users.
+
+
+
+### 1. Information
 
 
 
@@ -246,7 +315,7 @@ URL:
 
 
 
-### 4. Room
+### 2. Physiological variables
 
 
 
@@ -260,12 +329,181 @@ URL:
 
 
 
-## Sensors
-In this section you will find a list of the resources available in the RookMotion API to manage user sensors.
+### 3. External user
 
 
 
-### 1. Add sensor to user
+***Endpoint:***
+
+```bash
+Method: 
+Type: 
+URL: 
+```
+
+
+
+### 4. Retrieve client users
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{base_url}}/api/v2/users
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Retrieve client users (user information empty)
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve client users (user information empty)
+```js
+{
+    "data": [
+        {
+            "user_uuid": "ec34ca47-caac-445e-a456-dd0684c1f536",
+            "name": null,
+            "email": "prueba@rookmotion.com",
+            "birthday": null,
+            "sex": null
+        }
+    ],
+    "links": {
+        "first": "http://api2.rookmotion.com/api/v2/users?page=1",
+        "last": "http://api2.rookmotion.com/api/v2/users?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http://api2.rookmotion.com/api/v2/users?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "http://api2.rookmotion.com/api/v2/users",
+        "per_page": 30,
+        "to": 1,
+        "total": 1
+    }
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+#### II. Example Request: Retrieve client users (empty data)
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### II. Example Response: Retrieve client users (empty data)
+```js
+{
+    "data": [],
+    "links": {
+        "first": "http://api2.rookmotion.com/api/v2/users?page=1",
+        "last": "http://api2.rookmotion.com/api/v2/users?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": null,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http://api2.rookmotion.com/api/v2/users?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "http://api2.rookmotion.com/api/v2/users",
+        "per_page": 30,
+        "to": null,
+        "total": 0
+    }
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 5. Add user to RookMotion
 
 
 
@@ -274,7 +512,1689 @@ In this section you will find a list of the resources available in the RookMotio
 ```bash
 Method: POST
 Type: RAW
-URL: https://api2.rookmotion.rookeries.dev/api/v2/sensors/user/{{user_uuid}}
+URL: {{base_url}}/api/v2/users
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept-Language | en |  |
+| Accept | application/json |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "email": "{{user_email}}"
+}
+```
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Add user to RookMotion
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept-Language | en |  |
+| Accept | application/json |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "email": "{{user_email}}"
+}
+```
+
+
+
+#### I. Example Response: Add user to RookMotion
+```js
+{
+    "user_uuid": "ec34ca47-caac-445e-a456-dd0684c1f536"
+}
+```
+
+
+***Status Code:*** 201
+
+<br>
+
+
+
+### 6. update user email
+
+
+
+***Endpoint:***
+
+```bash
+Method: PUT
+Type: RAW
+URL: {{base_url}}/api/v2/users/{{user_uuid}}
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "email": "{{user_email}}"
+}
+```
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: update user email
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "email": "{{user_email}}"
+}
+```
+
+
+
+#### I. Example Response: update user email
+```js
+{
+    "result": "updated"
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+#### II. Example Request: update user email (user without change)
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "email": "{{user_email}}"
+}
+```
+
+
+
+#### II. Example Response: update user email (user without change)
+```js
+{
+    "result": "without changes"
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 7. Retrieve user status
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{base_url}}/api/v2/users/{{user_email}}/status
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Retrieve user status
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve user status
+```js
+{
+    "user_uuid": "ec34ca47-caac-445e-a456-dd0684c1f536",
+    "user_status": 1,
+    "profile_filled_at": null
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 8. Remove user for RookMotion
+
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: 
+URL: {{base_url}}/api/v2/users/{{user_uuid}}
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Remove user for RookMotion
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+***Status Code:*** 204
+
+<br>
+
+
+
+## Training type
+
+In this section, you will find a list of the resources available in the RookMotion API to obtain the Type Training
+
+
+
+### 1. Add training type
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{base_url}}/api/v2/trainings/type
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "training_name": [
+        {
+            "name": "test",
+            "lang": "es"
+        },
+        {
+            "name": "test",
+            "lang": "en"
+        }
+    ],
+    "requirements": {
+        "use_heart_rate": 1,
+        "use_steps": 1,
+        "step_options": "steps", 
+        "use_cycling": 0,
+        "use_gps": 0
+    }
+}
+```
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Add training type
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "training_name": [
+        {
+            "name": "test",
+            "lang": "es"
+        },
+        {
+            "name": "test",
+            "lang": "en"
+        }
+    ],
+    "requirements": {
+        "use_heart_rate": 1,
+        "use_steps": 1,
+        "step_options": "steps", 
+        "use_cycling": 0,
+        "use_gps": 0
+    }
+}
+```
+
+
+
+#### I. Example Response: Add training type
+```js
+{
+    "result": "added",
+    "training_type_uuid": "54a9f78c-5fb5-4f28-88dc-28ac20efb581"
+}
+```
+
+
+***Status Code:*** 201
+
+<br>
+
+
+
+### 2. Retrieve training types
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{base_url}}/api/v2/trainings/type
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Retrieve training types
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve training types
+```js
+{
+    "data": [
+        {
+            "training_type_uuid": "1dc7e4e1-8c85-4f06-8bcd-cccbf53ad069",
+            "trainig_name": "default 1",
+            "use_heart_rate": 1
+        }
+    ],
+    "links": {
+        "first": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+        "last": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "http://api2.rookmotion.com/api/v2/trainings/type",
+        "per_page": 30,
+        "to": 1,
+        "total": 1
+    }
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 3. Update training type
+
+
+
+***Endpoint:***
+
+```bash
+Method: PUT
+Type: RAW
+URL: {{base_url}}/api/v2/trainings/type/{{training_type}}
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "training_name": [
+        {
+            "name": "test edit",
+            "lang": "en"
+        }
+    ],
+    "requirements": {
+        "use_heart_rate": 1,
+        "use_steps": 1,
+        "step_options": "steps",
+        "use_cycling": 1,
+        "use_gps": 1
+    }
+}
+```
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Update training type
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "training_name": [
+        {
+            "name": "test edit",
+            "lang": "en"
+        }
+    ],
+    "requirements": {
+        "use_heart_rate": 1,
+        "use_steps": 1,
+        "step_options": "steps",
+        "use_cycling": 1,
+        "use_gps": 1
+    }
+}
+```
+
+
+
+#### I. Example Response: Update training type
+```js
+{
+    "result": "updated"
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 4. Retrieve training types extra attributes
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{base_url}}/api/v2/trainings/type/{{training_type_uuid}}/extra-attributes
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Retrieve training types
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | chain_fzagxudzny3qacvh3gtt7jieqmmt9j |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve training types
+```js
+{
+    "data": [
+        {
+            "training_type_uuid": "1dc7e4e1-8c85-4f06-8bcd-cccbf53ad069",
+            "trainig_name": "soccer",
+            "use_heart_rate": 1
+        }
+    ],
+    "links": {
+        "first": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+        "last": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "http://api2.rookmotion.com/api/v2/trainings/type",
+        "per_page": 30,
+        "to": 1,
+        "total": 1
+    }
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 5. Create  training types extra attributes
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{base_url}}/api/v2/trainings/type/{{training_type_uuid}}/extra-attributes
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "attributes": "{{attribute}}",
+    "content": "{{content}}"
+}
+```
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Retrieve training types
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | chain_fzagxudzny3qacvh3gtt7jieqmmt9j |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve training types
+```js
+{
+    "data": [
+        {
+            "training_type_uuid": "1dc7e4e1-8c85-4f06-8bcd-cccbf53ad069",
+            "trainig_name": "soccer",
+            "use_heart_rate": 1
+        }
+    ],
+    "links": {
+        "first": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+        "last": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "http://api2.rookmotion.com/api/v2/trainings/type",
+        "per_page": 30,
+        "to": 1,
+        "total": 1
+    }
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 6. update  training types extra attributes
+
+
+
+***Endpoint:***
+
+```bash
+Method: PUT
+Type: RAW
+URL: {{base_url}}/api/v2/trainings/type/extra-attributes/{{training_type_attributes}}
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "attributes": "{{attribute}}",
+    "content": "{{content}}",
+    "status": 1
+}
+```
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Retrieve training types
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | chain_fzagxudzny3qacvh3gtt7jieqmmt9j |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve training types
+```js
+{
+    "data": [
+        {
+            "training_type_uuid": "1dc7e4e1-8c85-4f06-8bcd-cccbf53ad069",
+            "trainig_name": "soccer",
+            "use_heart_rate": 1
+        }
+    ],
+    "links": {
+        "first": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+        "last": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "http://api2.rookmotion.com/api/v2/trainings/type",
+        "per_page": 30,
+        "to": 1,
+        "total": 1
+    }
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 7. delete  training types extra attributes
+
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: 
+URL: {{base_url}}/api/v2/trainings/type/extra-attributes/{{training_type_attributes}}
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Retrieve training types
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | chain_fzagxudzny3qacvh3gtt7jieqmmt9j |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve training types
+```js
+{
+    "data": [
+        {
+            "training_type_uuid": "1dc7e4e1-8c85-4f06-8bcd-cccbf53ad069",
+            "trainig_name": "soccer",
+            "use_heart_rate": 1
+        }
+    ],
+    "links": {
+        "first": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+        "last": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http://api2.rookmotion.com/api/v2/trainings/type?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "http://api2.rookmotion.com/api/v2/trainings/type",
+        "per_page": 30,
+        "to": 1,
+        "total": 1
+    }
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+## Trainings
+
+In this section you will find a list of the resources available in the RookMotion API to manage user trainings.
+
+
+
+### 1. Add training to user
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{base_url}}/api/v2/trainings/user/{{user_uuid}}
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "start":"2022-04-26 00:00:24",
+    "end":"2022-04-26 00:00:26",
+    "training_type_uuid": "{{training_type_uuid}}",
+    "sensor_uuid": "{{sensor_uuid}}",
+    "device_type":"app",
+    "groupal_mode": 0,
+    "records": {
+        "hr_derived_records":[
+            {
+                "timestamp": "1900-07-29 00:00:01",
+                "heart_rate": 80,
+                "effort": 100,
+                "calories": 2000,
+                "heart_rate_variability": 2000
+            }, 
+            {
+                "timestamp": "1900-07-29 00:00:02",
+                "heart_rate": 81,
+                "effort": 99,
+                "calories": 2001,
+                "heart_rate_variability": 2000
+            } 
+        ],
+        "steps_derived_records":[
+            {
+                "timestamp": "1900-07-29 00:00:01",
+                "steps": 5000,
+                "cadence": 20
+            }, 
+            {
+                "timestamp": "1900-07-29 00:00:02",
+                "steps": 5001,
+                "cadence": 21
+            }
+        ],
+        "bicycle_derived_records":[
+            {
+                "timestamp": "1900-07-29 00:00:01",
+                "cadence": 20,
+                "power": 1.0,
+                "resistance": 1.8
+            },
+            {
+                "timestamp": "1900-07-29 00:00:02",
+                "cadence": 20,
+                "power": 1.1,
+                "resistance": 1.9
+            }
+        ]
+    },
+    "summaries": [
+        {
+            "summary_type_id": 2,
+            "value": 3600
+        }
+    ]
+}
+```
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Add training to user
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "start":"1991-07-29 00:00:00",
+    "end":"1991-07-29 00:00:02",
+    "training_type_uuid": "{{training_type_uuid}}",
+    "sensor_uuid": "{{sensor_uuid}}",
+    "device_type":"app",
+    "groupal_mode": 0,
+    "records": {
+        "hr_derived_records":[
+            {
+                "timestamp": "1900-07-29 00:00:01",
+                "heart_rate": 80,
+                "effort": 100,
+                "calories": 2000,
+                "heart_rate_variability": 2000
+            }, 
+            {
+                "timestamp": "1900-07-29 00:00:02",
+                "heart_rate": 81,
+                "effort": 99,
+                "calories": 2001,
+                "heart_rate_variability": 2000
+            } 
+        ],
+        "steps_derived_records":[
+            {
+                "timestamp": "1900-07-29 00:00:01",
+                "steps": 5000,
+                "cadence": 20
+            }, 
+            {
+                "timestamp": "1900-07-29 00:00:02",
+                "steps": 5001,
+                "cadence": 21
+            }
+        ]
+    },
+    "summaries": [
+        {
+            "summary_type_id": 2,
+            "value": 3600
+        }
+    ]
+}
+```
+
+
+
+#### I. Example Response: Add training to user
+```js
+{
+    "result": "added",
+    "training_uuid": "fa27bcbf-6927-470e-aba7-bd3e0637a8ef"
+}
+```
+
+
+***Status Code:*** 201
+
+<br>
+
+
+
+### 2. Retrieve trainings of user
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{base_url}}/api/v2/trainings/user/{{user_uuid}}
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Retrieve trainings of user
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve trainings of user
+```js
+{
+    "data": [
+        {
+            "training_uuid": "fa27bcbf-6927-470e-aba7-bd3e0637a8ef",
+            "start": "1991-07-29 00:00:00",
+            "end": "1991-07-29 00:00:02",
+            "training_type": "default 1",
+            "device_type": "app",
+            "groupal_mode": 0,
+            "processed": 1,
+            "summaries": {
+                "z0_time_tot": "3600.0000"
+            },
+            "rewards": {
+                "calories_points": "0.0000"
+            }
+        }
+    ],
+    "links": {
+        "first": "http://api2.rookmotion.com/api/v2/trainings/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
+        "last": "http://api2.rookmotion.com/api/v2/trainings/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http://api2.rookmotion.com/api/v2/trainings/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "http://api2.rookmotion.com/api/v2/trainings/user/96559606-1846-4513-9247-cf18b1f58317",
+        "per_page": 30,
+        "to": 1,
+        "total": 1
+    }
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 3. Retrieve training information of user
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{base_url}}/api/v2/trainings/{{training_uuid}}/show
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Retrieve training information of user
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve training information of user
+```js
+{
+    "start": "1991-07-29 00:00:00",
+    "end": "1991-07-29 00:00:02",
+    "device_type": "app",
+    "groupal_mode": 0,
+    "training_type": "default 1",
+    "sensor": "TEST-2907",
+    "records": {
+        "hr_derived_records": [],
+        "steps_derived_records": []
+    },
+    "summaries": {
+        "z0_time_tot": "3600.0000"
+    },
+    "rewards": {
+        "calories_points": "0.0000"
+    }
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 4. Retrieve training state of user
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{base_url}}/api/v2/trainings/{{training_uuid}}/status
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Retrieve training state of user
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve training state of user
+```js
+{
+    "result": "syncing"
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 5. Remove training user
+
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: 
+URL: {{base_url}}/api/v2/trainings/{{training_uuid}}
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Remove training user
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+***Status Code:*** 204
+
+<br>
+
+
+
+### 6. Retrieve sum summaries
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{base_url}}/api/v2/summaries/2/user/{{user_uuid}}
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Retrieve sum summaries
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve sum summaries
+```js
+{
+    "result": "3600.0000"
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+## Sensors
+
+In this section you will find a list of the resources available in the RookMotion API to manage user sensors.
+
+
+
+### 1. Retrieve sensors from user
+
+
+
+***Endpoint:***
+
+```bash
+Method: GET
+Type: 
+URL: {{base_url}}/api/v2/sensors/user/{{user_uuid}}
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Retrieve sensors from user (empty data)
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve sensors from user (empty data)
+```js
+{
+    "data": [],
+    "links": {
+        "first": "http://api2.rookmotion.com/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
+        "last": "http://api2.rookmotion.com/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": null,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http://api2.rookmotion.com/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "http://api2.rookmotion.com/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317",
+        "per_page": 30,
+        "to": null,
+        "total": 0
+    }
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+#### II. Example Request: Retrieve sensors from user (whit data)
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+#### II. Example Response: Retrieve sensors from user (whit data)
+```js
+{
+    "data": [
+        {
+            "sensor_uuid": "4ed4eb61-114f-4471-bc62-7ea577d3589f",
+            "sensor_name": "TEST-2907",
+            "sensor_mac": "00:1B:44:11:3A:B7",
+            "ownership_type": "owned",
+            "updated_at": "2021-08-12 20:19:13"
+        },
+        {
+            "sensor_uuid": "fd7dc73d-ed43-4201-9747-720a61a5bca4",
+            "sensor_name": "TESTTWO-2907",
+            "sensor_mac": "00:1B:91:11:7A:B9",
+            "ownership_type": "borrowed",
+            "updated_at": "2021-08-12 20:22:00"
+        }
+    ],
+    "links": {
+        "first": "http://api2.rookmotion.com/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
+        "last": "http://api2.rookmotion.com/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http://api2.rookmotion.com/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "http://api2.rookmotion.com/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317",
+        "per_page": 30,
+        "to": 2,
+        "total": 2
+    }
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 2. Add sensor to user
+
+
+
+***Endpoint:***
+
+```bash
+Method: POST
+Type: RAW
+URL: {{base_url}}/api/v2/sensors/user/{{user_uuid}}
 ```
 
 
@@ -303,7 +2223,47 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/sensors/user/{{user_uuid}}
 ***More example Requests/Responses:***
 
 
-##### I. Example Request: Add sensor to user (borrowed)
+#### I. Example Request: Add sensor to user (owned)
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "name": "{{sensor_name}}",
+    "mac": "{{sensor_mac}}",
+    "ownership_type": "owned"
+}
+```
+
+
+
+#### I. Example Response: Add sensor to user (owned)
+```js
+{
+    "result": "added",
+    "sensor_uuid": "4ed4eb61-114f-4471-bc62-7ea577d3589f"
+}
+```
+
+
+***Status Code:*** 201
+
+<br>
+
+
+
+#### II. Example Request: Add sensor to user (borrowed)
 
 
 ***Headers:***
@@ -328,7 +2288,7 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/sensors/user/{{user_uuid}}
 
 
 
-##### I. Example Response: Add sensor to user (borrowed)
+#### II. Example Response: Add sensor to user (borrowed)
 ```js
 {
     "result": "added",
@@ -343,251 +2303,7 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/sensors/user/{{user_uuid}}
 
 
 
-##### II. Example Request: Add sensor to user (owned)
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***Body:***
-
-```js        
-{
-    "name": "{{sensor_name}}",
-    "mac": "{{sensor_mac}}",
-    "ownership_type": "owned"
-}
-```
-
-
-
-##### II. Example Response: Add sensor to user (owned)
-```js
-{
-    "result": "added",
-    "sensor_uuid": "4ed4eb61-114f-4471-bc62-7ea577d3589f"
-}
-```
-
-
-***Status Code:*** 201
-
-<br>
-
-
-
-### 2. Remove sensor from user
-
-
-
-***Endpoint:***
-
-```bash
-Method: DELETE
-Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/sensors/{{sensor_uuid}}/user/{{user_uuid}}
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Remove sensor from user
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***Status Code:*** 204
-
-<br>
-
-
-
-### 3. Retrive sensors from user
-
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/sensors/user/{{user_uuid}}
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Retrive sensors from user (whit data)
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-##### I. Example Response: Retrive sensors from user (whit data)
-```js
-{
-    "data": [
-        {
-            "sensor_uuid": "4ed4eb61-114f-4471-bc62-7ea577d3589f",
-            "sensor_name": "PRUEBA-2907",
-            "sensor_mac": "00:1B:44:11:3A:B7",
-            "ownership_type": "owned",
-            "updated_at": "2021-08-12 20:19:13"
-        },
-        {
-            "sensor_uuid": "fd7dc73d-ed43-4201-9747-720a61a5bca4",
-            "sensor_name": "PRUEBADOS-2907",
-            "sensor_mac": "00:1B:91:11:7A:B9",
-            "ownership_type": "borrowed",
-            "updated_at": "2021-08-12 20:22:00"
-        }
-    ],
-    "links": {
-        "first": "http://apiv2.test/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
-        "last": "http://apiv2.test/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
-        "prev": null,
-        "next": null
-    },
-    "meta": {
-        "current_page": 1,
-        "from": 1,
-        "last_page": 1,
-        "links": [
-            {
-                "url": null,
-                "label": "&laquo; Previous",
-                "active": false
-            },
-            {
-                "url": "http://apiv2.test/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
-                "label": "1",
-                "active": true
-            },
-            {
-                "url": null,
-                "label": "Next &raquo;",
-                "active": false
-            }
-        ],
-        "path": "http://apiv2.test/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317",
-        "per_page": 30,
-        "to": 2,
-        "total": 2
-    }
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-##### II. Example Request: Retrive sensors from user (empty data)
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-##### II. Example Response: Retrive sensors from user (empty data)
-```js
-{
-    "data": [],
-    "links": {
-        "first": "http://apiv2.test/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
-        "last": "http://apiv2.test/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
-        "prev": null,
-        "next": null
-    },
-    "meta": {
-        "current_page": 1,
-        "from": null,
-        "last_page": 1,
-        "links": [
-            {
-                "url": null,
-                "label": "&laquo; Previous",
-                "active": false
-            },
-            {
-                "url": "http://apiv2.test/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
-                "label": "1",
-                "active": true
-            },
-            {
-                "url": null,
-                "label": "Next &raquo;",
-                "active": false
-            }
-        ],
-        "path": "http://apiv2.test/api/v2/sensors/user/96559606-1846-4513-9247-cf18b1f58317",
-        "per_page": 30,
-        "to": null,
-        "total": 0
-    }
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-### 4. Update sensor
+### 3. Update sensor
 
 
 
@@ -596,7 +2312,7 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/sensors/user/{{user_uuid}}
 ```bash
 Method: PUT
 Type: RAW
-URL: https://api2.rookmotion.rookeries.dev/api/v2/sensors/{{sensor_uuid}}
+URL: {{base_url}}/api/v2/sensors/{{sensor_uuid}}
 ```
 
 
@@ -625,46 +2341,7 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/sensors/{{sensor_uuid}}
 ***More example Requests/Responses:***
 
 
-##### I. Example Request: Update sensor (ramdom)
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***Body:***
-
-```js        
-{
-    "name": "{{sensor_name}}",
-    "mac": "{{sensor_mac}}",
-    "mac_type": "random"
-}
-```
-
-
-
-##### I. Example Response: Update sensor (ramdom)
-```js
-{
-    "result": "updated"
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-##### II. Example Request: Update sensor (public)
+#### I. Example Request: Update sensor (public)
 
 
 ***Headers:***
@@ -689,7 +2366,7 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/sensors/{{sensor_uuid}}
 
 
 
-##### II. Example Response: Update sensor (public)
+#### I. Example Response: Update sensor (public)
 ```js
 {
     "result": "updated"
@@ -703,12 +2380,101 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/sensors/{{sensor_uuid}}
 
 
 
+#### II. Example Request: Update sensor (random)
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body:***
+
+```js        
+{
+    "name": "{{sensor_name}}",
+    "mac": "{{sensor_mac}}",
+    "mac_type": "random"
+}
+```
+
+
+
+#### II. Example Response: Update sensor (random)
+```js
+{
+    "result": "updated"
+}
+```
+
+
+***Status Code:*** 200
+
+<br>
+
+
+
+### 4. Remove sensor from user
+
+
+
+***Endpoint:***
+
+```bash
+Method: DELETE
+Type: 
+URL: {{base_url}}/api/v2/sensors/{{sensor_uuid}}/user/{{user_uuid}}
+```
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***More example Requests/Responses:***
+
+
+#### I. Example Request: Remove sensor from user
+
+
+***Headers:***
+
+| Key | Value | Description |
+| --- | ------|-------------|
+| token-level | {{token_level}} |  |
+| Accept | application/json |  |
+| Accept-Language | en |  |
+
+
+
+***Body: None***
+
+
+
+***Status Code:*** 204
+
+<br>
+
+
+
 ## Server
+
 Get Server datetime to ping the server
 
 
 
-### 1. Retrive server datetime
+### 1. Retrieve server datetime
 
 
 
@@ -717,7 +2483,7 @@ Get Server datetime to ping the server
 ```bash
 Method: GET
 Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/server/datetime
+URL: {{base_url}}/api/v2/server/datetime
 ```
 
 
@@ -732,7 +2498,7 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/server/datetime
 ***More example Requests/Responses:***
 
 
-##### I. Example Request: Retrive server datetime
+#### I. Example Request: Retrieve server datetime
 
 
 ***Headers:***
@@ -743,7 +2509,11 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/server/datetime
 
 
 
-##### I. Example Response: Retrive server datetime
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve server datetime
 ```js
 {
     "datetime": "2021-08-12 19:40:14"
@@ -758,11 +2528,12 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/server/datetime
 
 
 ## Summaries
+
 En esta sección, encontrará una lista de los recursos disponibles en la API de RookMotion para obtener los Summaries.
 
 
 
-### 1. Retrive summaries types
+### 1. Retrieve summaries types
 
 
 
@@ -771,7 +2542,7 @@ En esta sección, encontrará una lista de los recursos disponibles en la API de
 ```bash
 Method: GET
 Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/summaries
+URL: {{base_url}}/api/v2/summaries
 ```
 
 
@@ -788,7 +2559,7 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/summaries
 ***More example Requests/Responses:***
 
 
-##### I. Example Request: Retrive summaries types
+#### I. Example Request: Retrieve summaries types
 
 
 ***Headers:***
@@ -801,7 +2572,11 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/summaries
 
 
 
-##### I. Example Response: Retrive summaries types
+***Body: None***
+
+
+
+#### I. Example Response: Retrieve summaries types
 ```js
 {
     "data": [
@@ -1017,10 +2792,10 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/summaries
         }
     ],
     "links": {
-        "first": "http://apiv2.test/api/v2/summaries?page=1",
-        "last": "http://apiv2.test/api/v2/summaries?page=3",
+        "first": "http://api2.rookmotion.com/api/v2/summaries?page=1",
+        "last": "http://api2.rookmotion.com/api/v2/summaries?page=3",
         "prev": null,
-        "next": "http://apiv2.test/api/v2/summaries?page=2"
+        "next": "http://api2.rookmotion.com/api/v2/summaries?page=2"
     },
     "meta": {
         "current_page": 1,
@@ -1033,27 +2808,27 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/summaries
                 "active": false
             },
             {
-                "url": "http://apiv2.test/api/v2/summaries?page=1",
+                "url": "http://api2.rookmotion.com/api/v2/summaries?page=1",
                 "label": "1",
                 "active": true
             },
             {
-                "url": "http://apiv2.test/api/v2/summaries?page=2",
+                "url": "http://api2.rookmotion.com/api/v2/summaries?page=2",
                 "label": "2",
                 "active": false
             },
             {
-                "url": "http://apiv2.test/api/v2/summaries?page=3",
+                "url": "http://api2.rookmotion.com/api/v2/summaries?page=3",
                 "label": "3",
                 "active": false
             },
             {
-                "url": "http://apiv2.test/api/v2/summaries?page=2",
+                "url": "http://api2.rookmotion.com/api/v2/summaries?page=2",
                 "label": "Next &raquo;",
                 "active": false
             }
         ],
-        "path": "http://apiv2.test/api/v2/summaries",
+        "path": "http://api2.rookmotion.com/api/v2/summaries",
         "per_page": 30,
         "to": 30,
         "total": 75
@@ -1068,1470 +2843,7 @@ URL: https://api2.rookmotion.rookeries.dev/api/v2/summaries
 
 
 
-## Training type
-In this section, you will find a list of the resources available in the RookMotion API to obtain the Type Training
-
-
-
-### 1. Create  training types extra attributes
-
-
-
-***Endpoint:***
-
-```bash
-Method: POST
-Type: RAW
-URL: https://api2.rookmotion.rookeries.dev/api/v2/trainings/type/{{training_type_uuid}}/extra-attributes
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***Body:***
-
-```js        
-{
-    "attributes": "{{attribute}}",
-    "content": "{{content}}"
-}
-```
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Retrive training types
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | chain_fzagxudzny3qacvh3gtt7jieqmmt9j |  |
-| Accept-Language | en |  |
-
-
-
-##### I. Example Response: Retrive training types
-```js
-{
-    "data": [
-        {
-            "training_type_uuid": "1dc7e4e1-8c85-4f06-8bcd-cccbf53ad069",
-            "trainig_name": "soccer",
-            "use_heart_rate": 1
-        }
-    ],
-    "links": {
-        "first": "http://apiv2.test/api/v2/trainings/type?page=1",
-        "last": "http://apiv2.test/api/v2/trainings/type?page=1",
-        "prev": null,
-        "next": null
-    },
-    "meta": {
-        "current_page": 1,
-        "from": 1,
-        "last_page": 1,
-        "links": [
-            {
-                "url": null,
-                "label": "&laquo; Previous",
-                "active": false
-            },
-            {
-                "url": "http://apiv2.test/api/v2/trainings/type?page=1",
-                "label": "1",
-                "active": true
-            },
-            {
-                "url": null,
-                "label": "Next &raquo;",
-                "active": false
-            }
-        ],
-        "path": "http://apiv2.test/api/v2/trainings/type",
-        "per_page": 30,
-        "to": 1,
-        "total": 1
-    }
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-### 2. Retrive training types
-
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/trainings/type
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Retrive training types
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept-Language | en |  |
-
-
-
-##### I. Example Response: Retrive training types
-```js
-{
-    "data": [
-        {
-            "training_type_uuid": "1dc7e4e1-8c85-4f06-8bcd-cccbf53ad069",
-            "trainig_name": "default 1",
-            "use_heart_rate": 1
-        }
-    ],
-    "links": {
-        "first": "http://apiv2.test/api/v2/trainings/type?page=1",
-        "last": "http://apiv2.test/api/v2/trainings/type?page=1",
-        "prev": null,
-        "next": null
-    },
-    "meta": {
-        "current_page": 1,
-        "from": 1,
-        "last_page": 1,
-        "links": [
-            {
-                "url": null,
-                "label": "&laquo; Previous",
-                "active": false
-            },
-            {
-                "url": "http://apiv2.test/api/v2/trainings/type?page=1",
-                "label": "1",
-                "active": true
-            },
-            {
-                "url": null,
-                "label": "Next &raquo;",
-                "active": false
-            }
-        ],
-        "path": "http://apiv2.test/api/v2/trainings/type",
-        "per_page": 30,
-        "to": 1,
-        "total": 1
-    }
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-### 3. Retrive training types extra attributes
-
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/trainings/type/{{training_type_uuid}}/extra-attributes
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Retrive training types
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | chain_fzagxudzny3qacvh3gtt7jieqmmt9j |  |
-| Accept-Language | en |  |
-
-
-
-##### I. Example Response: Retrive training types
-```js
-{
-    "data": [
-        {
-            "training_type_uuid": "1dc7e4e1-8c85-4f06-8bcd-cccbf53ad069",
-            "trainig_name": "soccer",
-            "use_heart_rate": 1
-        }
-    ],
-    "links": {
-        "first": "http://apiv2.test/api/v2/trainings/type?page=1",
-        "last": "http://apiv2.test/api/v2/trainings/type?page=1",
-        "prev": null,
-        "next": null
-    },
-    "meta": {
-        "current_page": 1,
-        "from": 1,
-        "last_page": 1,
-        "links": [
-            {
-                "url": null,
-                "label": "&laquo; Previous",
-                "active": false
-            },
-            {
-                "url": "http://apiv2.test/api/v2/trainings/type?page=1",
-                "label": "1",
-                "active": true
-            },
-            {
-                "url": null,
-                "label": "Next &raquo;",
-                "active": false
-            }
-        ],
-        "path": "http://apiv2.test/api/v2/trainings/type",
-        "per_page": 30,
-        "to": 1,
-        "total": 1
-    }
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-### 4. delete  training types extra attributes
-
-
-
-***Endpoint:***
-
-```bash
-Method: DELETE
-Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/trainings/type/extra-attributes/{{training_type_attributes}}
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Retrive training types
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | chain_fzagxudzny3qacvh3gtt7jieqmmt9j |  |
-| Accept-Language | en |  |
-
-
-
-##### I. Example Response: Retrive training types
-```js
-{
-    "data": [
-        {
-            "training_type_uuid": "1dc7e4e1-8c85-4f06-8bcd-cccbf53ad069",
-            "trainig_name": "soccer",
-            "use_heart_rate": 1
-        }
-    ],
-    "links": {
-        "first": "http://apiv2.test/api/v2/trainings/type?page=1",
-        "last": "http://apiv2.test/api/v2/trainings/type?page=1",
-        "prev": null,
-        "next": null
-    },
-    "meta": {
-        "current_page": 1,
-        "from": 1,
-        "last_page": 1,
-        "links": [
-            {
-                "url": null,
-                "label": "&laquo; Previous",
-                "active": false
-            },
-            {
-                "url": "http://apiv2.test/api/v2/trainings/type?page=1",
-                "label": "1",
-                "active": true
-            },
-            {
-                "url": null,
-                "label": "Next &raquo;",
-                "active": false
-            }
-        ],
-        "path": "http://apiv2.test/api/v2/trainings/type",
-        "per_page": 30,
-        "to": 1,
-        "total": 1
-    }
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-### 5. update  training types extra attributes
-
-
-
-***Endpoint:***
-
-```bash
-Method: PUT
-Type: RAW
-URL: https://api2.rookmotion.rookeries.dev/api/v2/trainings/type/extra-attributes/{{training_type_attributes}}
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***Body:***
-
-```js        
-{
-    "attributes": "{{attribute}}",
-    "content": "{{content}}",
-    "status": 1
-}
-```
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Retrive training types
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | chain_fzagxudzny3qacvh3gtt7jieqmmt9j |  |
-| Accept-Language | en |  |
-
-
-
-##### I. Example Response: Retrive training types
-```js
-{
-    "data": [
-        {
-            "training_type_uuid": "1dc7e4e1-8c85-4f06-8bcd-cccbf53ad069",
-            "trainig_name": "soccer",
-            "use_heart_rate": 1
-        }
-    ],
-    "links": {
-        "first": "http://apiv2.test/api/v2/trainings/type?page=1",
-        "last": "http://apiv2.test/api/v2/trainings/type?page=1",
-        "prev": null,
-        "next": null
-    },
-    "meta": {
-        "current_page": 1,
-        "from": 1,
-        "last_page": 1,
-        "links": [
-            {
-                "url": null,
-                "label": "&laquo; Previous",
-                "active": false
-            },
-            {
-                "url": "http://apiv2.test/api/v2/trainings/type?page=1",
-                "label": "1",
-                "active": true
-            },
-            {
-                "url": null,
-                "label": "Next &raquo;",
-                "active": false
-            }
-        ],
-        "path": "http://apiv2.test/api/v2/trainings/type",
-        "per_page": 30,
-        "to": 1,
-        "total": 1
-    }
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-## Trainings
-In this section you will find a list of the resources available in the RookMotion API to manage user trainings.
-
-
-
-### 1. Add training to user
-
-
-
-***Endpoint:***
-
-```bash
-Method: POST
-Type: RAW
-URL: https://api2.rookmotion.rookeries.dev/api/v2/trainings/user/{{user_uuid}}
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***Body:***
-
-```js        
-{
-    "start":"2022-04-26 00:00:24",
-    "end":"2022-04-26 00:00:26",
-    "training_type_uuid": "{{training_type_uuid}}",
-    "sensor_uuid": "{{sensor_uuid}}",
-    "device_type":"app",
-    "groupal_mode": 0,
-    "records": {
-        "hr_derived_records":[
-            {
-                "timestamp": "1900-07-29 00:00:01",
-                "heart_rate": 80,
-                "effort": 100,
-                "calories": 2000,
-                "heart_rate_variability": 2000
-            }, 
-            {
-                "timestamp": "1900-07-29 00:00:02",
-                "heart_rate": 81,
-                "effort": 99,
-                "calories": 2001,
-                "heart_rate_variability": 2000
-            } 
-        ],
-        "steps_derived_records":[
-            {
-                "timestamp": "1900-07-29 00:00:01",
-                "steps": 5000,
-                "cadence": 20
-            }, 
-            {
-                "timestamp": "1900-07-29 00:00:02",
-                "steps": 5001,
-                "cadence": 21
-            }
-        ],
-        "bicycle_derived_records":[
-            {
-                "timestamp": "1900-07-29 00:00:01",
-                "cadence": 20,
-                "power": 1.0,
-                "resistance": 1.8
-            },
-            {
-                "timestamp": "1900-07-29 00:00:02",
-                "cadence": 20,
-                "power": 1.1,
-                "resistance": 1.9
-            }
-        ]
-    },
-    "summaries": [
-        {
-            "summary_type_id": 2,
-            "value": 3600
-        }
-    ]
-}
-```
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Add training to user
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***Body:***
-
-```js        
-{
-    "start":"1991-07-29 00:00:00",
-    "end":"1991-07-29 00:00:02",
-    "training_type_uuid": "{{training_type_uuid}}",
-    "sensor_uuid": "{{sensor_uuid}}",
-    "device_type":"app",
-    "groupal_mode": 0,
-    "records": {
-        "hr_derived_records":[
-            {
-                "timestamp": "1900-07-29 00:00:01",
-                "heart_rate": 80,
-                "effort": 100,
-                "calories": 2000,
-                "heart_rate_variability": 2000
-            }, 
-            {
-                "timestamp": "1900-07-29 00:00:02",
-                "heart_rate": 81,
-                "effort": 99,
-                "calories": 2001,
-                "heart_rate_variability": 2000
-            } 
-        ],
-        "steps_derived_records":[
-            {
-                "timestamp": "1900-07-29 00:00:01",
-                "steps": 5000,
-                "cadence": 20
-            }, 
-            {
-                "timestamp": "1900-07-29 00:00:02",
-                "steps": 5001,
-                "cadence": 21
-            }
-        ]
-    },
-    "summaries": [
-        {
-            "summary_type_id": 2,
-            "value": 3600
-        }
-    ]
-}
-```
-
-
-
-##### I. Example Response: Add training to user
-```js
-{
-    "result": "added",
-    "training_uuid": "fa27bcbf-6927-470e-aba7-bd3e0637a8ef"
-}
-```
-
-
-***Status Code:*** 201
-
-<br>
-
-
-
-### 2. Remove training user
-
-
-
-***Endpoint:***
-
-```bash
-Method: DELETE
-Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/trainings/{{training_uuid}}
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Remove training user
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***Status Code:*** 204
-
-<br>
-
-
-
-### 3. Retrieve training information of user
-
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/trainings/{{training_uuid}}/show
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Retrieve training information of user
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-##### I. Example Response: Retrieve training information of user
-```js
-{
-    "start": "1991-07-29 00:00:00",
-    "end": "1991-07-29 00:00:02",
-    "device_type": "app",
-    "groupal_mode": 0,
-    "training_type": "default 1",
-    "sensor": "PRUEBA-2907",
-    "records": {
-        "hr_derived_records": [],
-        "steps_derived_records": []
-    },
-    "summaries": {
-        "z0_time_tot": "3600.0000"
-    },
-    "rewards": {
-        "calories_points": "0.0000"
-    }
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-### 4. Retrive sum summaries
-
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/summaries/2/user/{{user_uuid}}
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Retrive sum summaries
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-##### I. Example Response: Retrive sum summaries
-```js
-{
-    "result": "3600.0000"
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-### 5. Retrive training state of user
-
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/trainings/{{training_uuid}}/status
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Retrive training state of user
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-##### I. Example Response: Retrive training state of user
-```js
-{
-    "result": "syncing"
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-### 6. Retrive trainings of user
-
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/trainings/user/{{user_uuid}}
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Retrive trainings of user
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-##### I. Example Response: Retrive trainings of user
-```js
-{
-    "data": [
-        {
-            "training_uuid": "fa27bcbf-6927-470e-aba7-bd3e0637a8ef",
-            "start": "1991-07-29 00:00:00",
-            "end": "1991-07-29 00:00:02",
-            "training_type": "default 1",
-            "device_type": "app",
-            "groupal_mode": 0,
-            "processed": 1,
-            "summaries": {
-                "z0_time_tot": "3600.0000"
-            },
-            "rewards": {
-                "calories_points": "0.0000"
-            }
-        }
-    ],
-    "links": {
-        "first": "http://apiv2.test/api/v2/trainings/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
-        "last": "http://apiv2.test/api/v2/trainings/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
-        "prev": null,
-        "next": null
-    },
-    "meta": {
-        "current_page": 1,
-        "from": 1,
-        "last_page": 1,
-        "links": [
-            {
-                "url": null,
-                "label": "&laquo; Previous",
-                "active": false
-            },
-            {
-                "url": "http://apiv2.test/api/v2/trainings/user/96559606-1846-4513-9247-cf18b1f58317?page=1",
-                "label": "1",
-                "active": true
-            },
-            {
-                "url": null,
-                "label": "Next &raquo;",
-                "active": false
-            }
-        ],
-        "path": "http://apiv2.test/api/v2/trainings/user/96559606-1846-4513-9247-cf18b1f58317",
-        "per_page": 30,
-        "to": 1,
-        "total": 1
-    }
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-## Users
-In this section you will find a list of the resources available in the RookMotion API to manage users.
-
-
-
-### 1. Add user to RookMotion
-
-
-
-***Endpoint:***
-
-```bash
-Method: POST
-Type: RAW
-URL: https://api2.rookmotion.rookeries.dev/api/v2/users
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept-Language | en |  |
-| Accept | application/json |  |
-
-
-
-***Body:***
-
-```js        
-{
-    "email": "{{user_email}}"
-}
-```
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Add user to RookMotion
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept-Language | en |  |
-| Accept | application/json |  |
-
-
-
-***Body:***
-
-```js        
-{
-    "email": "{{user_email}}"
-}
-```
-
-
-
-##### I. Example Response: Add user to RookMotion
-```js
-{
-    "user_uuid": "ec34ca47-caac-445e-a456-dd0684c1f536"
-}
-```
-
-
-***Status Code:*** 201
-
-<br>
-
-
-
-### 2. External user
-
-
-
-***Endpoint:***
-
-```bash
-Method: 
-Type: 
-URL: 
-```
-
-
-
-### 3. Information
-
-
-
-***Endpoint:***
-
-```bash
-Method: 
-Type: 
-URL: 
-```
-
-
-
-### 4. Physiological variables
-
-
-
-***Endpoint:***
-
-```bash
-Method: 
-Type: 
-URL: 
-```
-
-
-
-### 5. Remove user for RookMotion
-
-
-
-***Endpoint:***
-
-```bash
-Method: DELETE
-Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/users/{{user_uuid}}
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Remove user for RookMotion
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***Status Code:*** 204
-
-<br>
-
-
-
-### 6. Retrieve user status
-
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/users/{{user_email}}/status
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Retrieve user status
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-##### I. Example Response: Retrieve user status
-```js
-{
-    "user_uuid": "ec34ca47-caac-445e-a456-dd0684c1f536",
-    "user_status": 1,
-    "profile_filled_at": null
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-### 7. Retrive client users
-
-
-
-***Endpoint:***
-
-```bash
-Method: GET
-Type: 
-URL: https://api2.rookmotion.rookeries.dev/api/v2/users
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: Retrive client users (empy data)
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-##### I. Example Response: Retrive client users (empy data)
-```js
-{
-    "data": [],
-    "links": {
-        "first": "http://apiv2.test/api/v2/users?page=1",
-        "last": "http://apiv2.test/api/v2/users?page=1",
-        "prev": null,
-        "next": null
-    },
-    "meta": {
-        "current_page": 1,
-        "from": null,
-        "last_page": 1,
-        "links": [
-            {
-                "url": null,
-                "label": "&laquo; Previous",
-                "active": false
-            },
-            {
-                "url": "http://apiv2.test/api/v2/users?page=1",
-                "label": "1",
-                "active": true
-            },
-            {
-                "url": null,
-                "label": "Next &raquo;",
-                "active": false
-            }
-        ],
-        "path": "http://apiv2.test/api/v2/users",
-        "per_page": 30,
-        "to": null,
-        "total": 0
-    }
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-##### II. Example Request: Retrive client users (user information empty)
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-##### II. Example Response: Retrive client users (user information empty)
-```js
-{
-    "data": [
-        {
-            "user_uuid": "ec34ca47-caac-445e-a456-dd0684c1f536",
-            "name": null,
-            "email": "prueba@rookmotion.com",
-            "birthday": null,
-            "sex": null
-        }
-    ],
-    "links": {
-        "first": "http://apiv2.test/api/v2/users?page=1",
-        "last": "http://apiv2.test/api/v2/users?page=1",
-        "prev": null,
-        "next": null
-    },
-    "meta": {
-        "current_page": 1,
-        "from": 1,
-        "last_page": 1,
-        "links": [
-            {
-                "url": null,
-                "label": "&laquo; Previous",
-                "active": false
-            },
-            {
-                "url": "http://apiv2.test/api/v2/users?page=1",
-                "label": "1",
-                "active": true
-            },
-            {
-                "url": null,
-                "label": "Next &raquo;",
-                "active": false
-            }
-        ],
-        "path": "http://apiv2.test/api/v2/users",
-        "per_page": 30,
-        "to": 1,
-        "total": 1
-    }
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-### 8. update user email
-
-
-
-***Endpoint:***
-
-```bash
-Method: PUT
-Type: RAW
-URL: https://api2.rookmotion.rookeries.dev/api/v2/users/{{user_uuid}}
-```
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***Body:***
-
-```js        
-{
-    "email": "{{user_email}}"
-}
-```
-
-
-
-***More example Requests/Responses:***
-
-
-##### I. Example Request: update user email
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***Body:***
-
-```js        
-{
-    "email": "{{user_email}}"
-}
-```
-
-
-
-##### I. Example Response: update user email
-```js
-{
-    "result": "updated"
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-##### II. Example Request: update user email (user whithout change)
-
-
-***Headers:***
-
-| Key | Value | Description |
-| --- | ------|-------------|
-| token-level | {{token_level}} |  |
-| Accept | application/json |  |
-| Accept-Language | en |  |
-
-
-
-***Body:***
-
-```js        
-{
-    "email": "{{user_email}}"
-}
-```
-
-
-
-##### II. Example Response: update user email (user whithout change)
-```js
-{
-    "result": "without changes"
-}
-```
-
-
-***Status Code:*** 200
-
-<br>
-
-
-
-***Available Variables:***
-
-| Key | Value | Type |
-| --- | ------|-------------|
-| token_rm |  |  |
-| base_url | https://api2.rookmotion.rookeries.dev |  |
-
-
-
 ---
 [Back to top](#rookmotion-api-v2)
-> Made with &#9829; by [thedevsaddam](https://github.com/thedevsaddam) | Generated at: 2022-05-31 13:36:55 by [docgen](https://github.com/thedevsaddam/docgen)
+
+>Generated at 2022-10-25 15:24:06 by [docgen](https://github.com/thedevsaddam/docgen)
